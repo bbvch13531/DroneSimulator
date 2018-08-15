@@ -14,9 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.makeKeyAndVisible()
+		
+		let flowLayout = UICollectionViewFlowLayout()
+		flowLayout.scrollDirection = .horizontal
+		flowLayout.minimumLineSpacing = 0
+		flowLayout.minimumInteritemSpacing = 0
+		let customCollectionViewController = CustomCollectionViewController(collectionViewLayout: flowLayout)
+		
+		window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
 		return true
 	}
 
