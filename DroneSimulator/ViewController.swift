@@ -9,11 +9,22 @@
 import UIKit
 
 
-class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+	func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+		
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+		let dragItem = [UIDragItem]()
+		return dragItem
+		
+	}
 	
 	let customCellIdentifier = "customCellIdentifier"
 	let imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
 	lazy var customItems:Int = imageArr.count
+	
+	var longPressGesture: UILongPressGestureRecognizer!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -22,6 +33,15 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
 		
 		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
+		
+		collectionView?.dragInteractionEnabled = true
+		
+//		self.collectionView?.dragDelegate = self
+//		collectionView?.dropDelegate = self
+		
+		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+		collectionView?.addGestureRecognizer(longPressGesture)
+		
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -40,12 +60,37 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 
 		return cell
 	}
+	/*
+	Enable the use of moving items in UICollectionView
+	*/
+	override func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+		return true
+	}
+	override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+		print("start : \(sourceIndexPath.item), end : \(destinationIndexPath.item)")
+
+	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		return CGSize(width: 300, height: view.frame.height)
 	}
 	
-	
+	@objc func handleLongGesture(gesture: UILongPressGestureRecognizer){
+		switch gesture.state {
+		case .began:
+			guard let selectedIndexPath = collectionView?.indexPathForItem(at: gesture.location(in: collectionView))
+				else {
+					break
+			}
+			collectionView?.beginInteractiveMovementForItem(at: selectedIndexPath)
+		case .changed:
+			collectionView?.updateInteractiveMovementTargetPosition(gesture.location(in: collectionView))
+		case .ended:
+			collectionView?.endInteractiveMovement()
+		default:
+			collectionView?.cancelInteractiveMovement()
+		}
+	}
 }
 
 class CustomCell: UICollectionViewCell {
