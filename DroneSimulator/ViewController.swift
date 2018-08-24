@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 
 class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
 	func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
@@ -21,7 +21,12 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	let customCellIdentifier = "customCellIdentifier"
-	let imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
+//	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
+	
+	
+	var imageArr = [UILabel()]
+	
+	
 	lazy var customItems:Int = imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
@@ -42,6 +47,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
 		collectionView?.addGestureRecognizer(longPressGesture)
 		
+		//서버와 통신해서 imageArr에 텍스트 넣기
+		imageArr.
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -54,7 +61,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
 		
+		
 		let image: UIImage = imageArr[indexPath.row]
+		
 		
 		cell.imageView.image = image
 
@@ -73,6 +82,17 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		return CGSize(width: 300, height: view.frame.height)
+	}
+	
+	override func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath{
+		
+		let tmp = imageArr[proposedIndexPath.row]
+//		get(proposedIndexPath)
+		
+		imageArr[proposedIndexPath.row] = imageArr[originalIndexPath.row]
+		imageArr[originalIndexPath.row] = tmp
+		
+		return proposedIndexPath
 	}
 	
 	@objc func handleLongGesture(gesture: UILongPressGestureRecognizer){

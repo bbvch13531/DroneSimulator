@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85FDC288367563F0F09D69A3 /* Pods_DroneSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0CD8E6F48CA4BEF239691 /* Pods_DroneSimulator.framework */; };
 		9F8F22FA2122DAA100F5617A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F22F92122DAA100F5617A /* AppDelegate.swift */; };
 		9F8F22FC2122DAA100F5617A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F22FB2122DAA100F5617A /* ViewController.swift */; };
 		9F8F22FF2122DAA100F5617A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F22FD2122DAA100F5617A /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30F0CD8E6F48CA4BEF239691 /* Pods_DroneSimulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DroneSimulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8377F352983F31BE635E4001 /* Pods-DroneSimulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DroneSimulator.release.xcconfig"; path = "Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator.release.xcconfig"; sourceTree = "<group>"; };
 		9F8F22F62122DAA100F5617A /* DroneSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroneSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F8F22F92122DAA100F5617A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F8F22FB2122DAA100F5617A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		9F8F23032122DAA200F5617A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F8F23062122DAA200F5617A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F8F23082122DAA200F5617A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2D78E419ED8577DA16083E6 /* Pods-DroneSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DroneSimulator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85FDC288367563F0F09D69A3 /* Pods_DroneSimulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D77CE9C1F1AA8B1A5325568 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E2D78E419ED8577DA16083E6 /* Pods-DroneSimulator.debug.xcconfig */,
+				8377F352983F31BE635E4001 /* Pods-DroneSimulator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		47FB4C8FF29B088EBF357F4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				30F0CD8E6F48CA4BEF239691 /* Pods_DroneSimulator.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9F8F22ED2122DAA100F5617A = {
 			isa = PBXGroup;
 			children = (
 				9F8F22F82122DAA100F5617A /* DroneSimulator */,
 				9F8F22F72122DAA100F5617A /* Products */,
+				0D77CE9C1F1AA8B1A5325568 /* Pods */,
+				47FB4C8FF29B088EBF357F4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F8F230B2122DAA200F5617A /* Build configuration list for PBXNativeTarget "DroneSimulator" */;
 			buildPhases = (
+				DA9C4016FE4362DA9A281C0D /* [CP] Check Pods Manifest.lock */,
 				9F8F22F22122DAA100F5617A /* Sources */,
 				9F8F22F32122DAA100F5617A /* Frameworks */,
 				9F8F22F42122DAA100F5617A /* Resources */,
+				0CA7B02FC6505ED410D0E71B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +158,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0CA7B02FC6505ED410D0E71B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA9C4016FE4362DA9A281C0D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DroneSimulator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9F8F22F22122DAA100F5617A /* Sources */ = {
@@ -282,15 +347,13 @@
 		};
 		9F8F230C2122DAA200F5617A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2D78E419ED8577DA16083E6 /* Pods-DroneSimulator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8ZMC86H7GX;
 				INFOPLIST_FILE = DroneSimulator/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bbvch13531.DroneSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -300,15 +363,13 @@
 		};
 		9F8F230D2122DAA200F5617A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8377F352983F31BE635E4001 /* Pods-DroneSimulator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8ZMC86H7GX;
 				INFOPLIST_FILE = DroneSimulator/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bbvch13531.DroneSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
