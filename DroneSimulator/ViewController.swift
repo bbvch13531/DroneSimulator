@@ -21,10 +21,10 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	let customCellIdentifier = "customCellIdentifier"
-//	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
+	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
 	
 	
-	var imageArr = [UILabel()]
+//	var imageArr = [UILabel()]
 	
 	
 	lazy var customItems:Int = imageArr.count
@@ -48,7 +48,16 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.addGestureRecognizer(longPressGesture)
 		
 		//서버와 통신해서 imageArr에 텍스트 넣기
-		imageArr.
+		
+		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").response { response in
+			print("Request: \(response.request)")
+			print("Response: \(response.response)")
+			print("Error: \(response.error)")
+			
+			if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+				print("Data: \(utf8Text)")
+			}
+		}
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -66,7 +75,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		
 		
 		cell.imageView.image = image
-
+		cell.nameLabel.text = "Custom Text"
 		return cell
 	}
 	/*
@@ -127,7 +136,6 @@ class CustomCell: UICollectionViewCell {
 	
 	let nameLabel: UILabel = {
 		let label = UILabel()
-		label.text = "Custom Text"
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -137,6 +145,7 @@ class CustomCell: UICollectionViewCell {
 	func setupViews(){
 		imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
 		customView.addSubview(imageView)
+		customView.addSubview(nameLabel)
 		backgroundColor = UIColor(displayP3Red: 0.99, green: 0.77, blue: 0.32, alpha: 1.0)
 		addSubview(customView)
 		
