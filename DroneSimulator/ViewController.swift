@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate,  UICollectionViewDropDelegate, UICollectionViewDataSourcePrefetching, UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
 		
 	}
@@ -22,8 +22,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	
 	let customCellIdentifier = "customCellIdentifier"
 	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
-	
-	
+	var imageFilename = [String]()
 //	var imageArr = [UILabel()]
 	
 	
@@ -33,6 +32,21 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		//서버와 통신해서 imageArr에 텍스트 넣기
+		
+		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").responseJSON { response in
+			print("Request: \(response.request)")
+			print("Response: \(response.response)")
+			print("Error: \(response.error)")
+			
+			if let json = response.result.value {
+				//				print("JSON: \(json)")
+				self.parseJSON(json: json)
+			}
+			
+		}
+		print(imageFilename)
 		
 		collectionView?.backgroundColor = UIColor.white
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
@@ -47,17 +61,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
 		collectionView?.addGestureRecognizer(longPressGesture)
 		
-		//서버와 통신해서 imageArr에 텍스트 넣기
 		
-		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").response { response in
-			print("Request: \(response.request)")
-			print("Response: \(response.response)")
-			print("Error: \(response.error)")
-			
-			if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-				print("Data: \(utf8Text)")
-			}
-		}
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -75,7 +79,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		
 		
 		cell.imageView.image = image
-		cell.nameLabel.text = "Custom Text"
+		print(indexPath.row, imageFilename)
+//		cell.nameLabel.text = imageFilename[indexPath.row]
 		return cell
 	}
 	/*
@@ -95,9 +100,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	
 	override func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath{
 		
-		let tmp = imageArr[proposedIndexPath.row]
-//		get(proposedIndexPath)
+		// Swap dragging items
 		
+		let tmp = imageArr[proposedIndexPath.row]
 		imageArr[proposedIndexPath.row] = imageArr[originalIndexPath.row]
 		imageArr[originalIndexPath.row] = tmp
 		
@@ -118,6 +123,22 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			collectionView?.endInteractiveMovement()
 		default:
 			collectionView?.cancelInteractiveMovement()
+		}
+	}
+	
+	func parseJSON(json JSON: Any){
+		if let objarray = JSON as? [Any] {
+			
+			for array in objarray {
+				if let object = array as? [String:Any]{
+					if let filename = object["filename"] as? String {
+						print("\(filename)\n")
+						imageFilename.append(filename)
+//						imageFilename.append(filename)
+					}
+				}
+//				print("\(object)")
+			}
 		}
 	}
 }
