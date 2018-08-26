@@ -12,9 +12,9 @@ import Alamofire
 class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,  UICollectionViewDataSourcePrefetching {
 	
 	let customCellIdentifier = "customCellIdentifier"
-	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
+	var imageArr = [UIImage(named: "soohorang")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
 //	lazy var imageFilename = ["양철지붕","최저임금","돌팔매","google_chrome_logo","logo-quantum","tomato","ssulogo"]
-	lazy var imageFilename = [String]()
+	lazy var imageId = [String]()
 	
 	lazy var customItems:Int = imageArr.count
 	
@@ -41,6 +41,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		}
 		
 		navigationItem.title = "DroneSimulator"
+		createButton()
 		
 		collectionView?.backgroundColor = UIColor.white
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
@@ -85,11 +86,11 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		
 		cell.imageView.image = image
 //		print("cellForItemAt",indexPath.row, imageFilename.count)
-		if(imageFilename.count == 0) {
+		if(imageId.count == 0) {
 			cell.nameLabel.text = nil
 		}
 		else {
-			cell.nameLabel.text = self.imageFilename[indexPath.row]
+			cell.nameLabel.text = self.imageId[indexPath.row]
 		}
 		return cell
 	}
@@ -119,9 +120,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		imageArr[proposedIndexPath.row] = imageArr[originalIndexPath.row]
 		imageArr[originalIndexPath.row] = tmpImage
 		
-		let tmpFilename = imageFilename[proposedIndexPath.row]
-		imageFilename[proposedIndexPath.row] = imageFilename[originalIndexPath.row]
-		imageFilename[originalIndexPath.row] = tmpFilename
+		let tmpId = imageId[proposedIndexPath.row]
+		imageId[proposedIndexPath.row] = imageId[originalIndexPath.row]
+		imageId[originalIndexPath.row] = tmpId
 		
 		return proposedIndexPath
 	}
@@ -151,14 +152,14 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			
 			if let json = response.result.value {
 				//				print("JSON: \(json)")
-				print("alamofire : \(self.imageFilename.count)")
+				print("alamofire : \(self.imageId.count)")
 				if let objarray = json as? [Any] {
 					
 					for array in objarray {
 						if let object = array as? [String:Any]{
-							if let filename = object["filename"] as? String {
-								print("\(filename)\n")
-								self.imageFilename.append(filename)
+							if let id = object["_id"] as? String {
+								print("\(id)\n")
+								self.imageId.append(id)
 								//						imageFilename.append(filename)
 							}
 						}
@@ -166,6 +167,21 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 				}
 			}
 		}
+	}
+	func createButton(){
+		let submitBtn = UIButton()
+		
+		submitBtn.frame = CGRect(x: 50, y: 100, width: 150, height: 50)
+		submitBtn.setTitle("Submit", for: .normal)
+		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
+		submitBtn.tintColor = UIColor.black
+		submitBtn.setTitleColor(UIColor.blue, for: .normal)
+		self.view.addSubview(submitBtn)
+	}
+	
+	@objc func submit(sender: UIButton){
+//		for element in imageFilename{
+			print("Button pressed!")
 	}
 }
 
