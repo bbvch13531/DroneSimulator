@@ -9,7 +9,58 @@
 import UIKit
 import Alamofire
 
-class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate,  UICollectionViewDropDelegate, UICollectionViewDataSourcePrefetching, UICollectionViewDataSource {
+class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,  UICollectionViewDataSourcePrefetching {
+	
+	let customCellIdentifier = "customCellIdentifier"
+	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
+//	lazy var imageFilename = ["양철지붕","최저임금","돌팔매","google_chrome_logo","logo-quantum","tomato","ssulogo"]
+	lazy var imageFilename = [String]()
+	
+	lazy var customItems:Int = imageArr.count
+	
+	var longPressGesture: UILongPressGestureRecognizer!
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		collectionView?.prefetchDataSource = self
+		
+		//서버와 통신해서 imageArr에 텍스트 넣기
+		
+		DispatchQueue.global().async{
+			defer{
+				DispatchQueue.main.async {
+					self.collectionView?.reloadData()
+				}
+			}
+			do{
+				self.parseJSON()
+			}catch{
+				print(error.localizedDescription)
+			}
+		}
+		
+		navigationItem.title = "DroneSimulator"
+		
+		collectionView?.backgroundColor = UIColor.white
+		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
+		
+		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
+		
+		collectionView?.dragInteractionEnabled = true
+
+		
+		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+		collectionView?.addGestureRecognizer(longPressGesture)
+		
+	}
+	/*
+	MARK: Implement UICollectionViewDataSourcePrefetching protocol
+	*/
+	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+		//		print("prefetchForItemAt", imageFilename.count)
+	}
+	
 	func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
 		
 	}
@@ -19,51 +70,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		return dragItem
 		
 	}
-	
-	let customCellIdentifier = "customCellIdentifier"
-	var imageArr = [UIImage(named: "양철지붕")!,UIImage(named: "최저임금")!,UIImage(named: "돌팔매")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
-	var imageFilename = [String]()
-//	var imageArr = [UILabel()]
-	
-	
-	lazy var customItems:Int = imageArr.count
-	
-	var longPressGesture: UILongPressGestureRecognizer!
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		//서버와 통신해서 imageArr에 텍스트 넣기
-		
-		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").responseJSON { response in
-			print("Request: \(response.request)")
-			print("Response: \(response.response)")
-			print("Error: \(response.error)")
-			
-			if let json = response.result.value {
-				//				print("JSON: \(json)")
-				self.parseJSON(json: json)
-			}
-			
-		}
-		print(imageFilename)
-		
-		collectionView?.backgroundColor = UIColor.white
-		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
-		
-		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
-		
-		collectionView?.dragInteractionEnabled = true
-		
-//		self.collectionView?.dragDelegate = self
-//		collectionView?.dropDelegate = self
-		
-		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
-		collectionView?.addGestureRecognizer(longPressGesture)
-		
-		
-	}
-
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 	}
@@ -77,12 +83,20 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		
 		let image: UIImage = imageArr[indexPath.row]
 		
-		
 		cell.imageView.image = image
-		print(indexPath.row, imageFilename)
-//		cell.nameLabel.text = imageFilename[indexPath.row]
+//		print("cellForItemAt",indexPath.row, imageFilename.count)
+		if(imageFilename.count == 0) {
+			cell.nameLabel.text = nil
+		}
+		else {
+			cell.nameLabel.text = self.imageFilename[indexPath.row]
+		}
 		return cell
 	}
+//	override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
+//		cell.nameLabel.text = self.imageFilename[indexPath.row]
+//	}
 	/*
 	Enable the use of moving items in UICollectionView
 	*/
@@ -101,10 +115,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath{
 		
 		// Swap dragging items
-		
-		let tmp = imageArr[proposedIndexPath.row]
+		let tmpImage = imageArr[proposedIndexPath.row]
 		imageArr[proposedIndexPath.row] = imageArr[originalIndexPath.row]
-		imageArr[originalIndexPath.row] = tmp
+		imageArr[originalIndexPath.row] = tmpImage
+		
+		let tmpFilename = imageFilename[proposedIndexPath.row]
+		imageFilename[proposedIndexPath.row] = imageFilename[originalIndexPath.row]
+		imageFilename[originalIndexPath.row] = tmpFilename
 		
 		return proposedIndexPath
 	}
@@ -126,18 +143,27 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		}
 	}
 	
-	func parseJSON(json JSON: Any){
-		if let objarray = JSON as? [Any] {
+	func parseJSON(){
+		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").responseJSON { response in
+			print("Request: \(response.request)")
+			print("Response: \(response.response)")
+			print("Error: \(response.error)")
 			
-			for array in objarray {
-				if let object = array as? [String:Any]{
-					if let filename = object["filename"] as? String {
-						print("\(filename)\n")
-						imageFilename.append(filename)
-//						imageFilename.append(filename)
+			if let json = response.result.value {
+				//				print("JSON: \(json)")
+				print("alamofire : \(self.imageFilename.count)")
+				if let objarray = json as? [Any] {
+					
+					for array in objarray {
+						if let object = array as? [String:Any]{
+							if let filename = object["filename"] as? String {
+								print("\(filename)\n")
+								self.imageFilename.append(filename)
+								//						imageFilename.append(filename)
+							}
+						}
 					}
 				}
-//				print("\(object)")
 			}
 		}
 	}
@@ -172,6 +198,5 @@ class CustomCell: UICollectionViewCell {
 		
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-		
 	}
 }

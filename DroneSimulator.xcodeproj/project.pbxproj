@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		85FDC288367563F0F09D69A3 /* Pods_DroneSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0CD8E6F48CA4BEF239691 /* Pods_DroneSimulator.framework */; };
+		9F184F54213270DC0062C9E4 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F184F53213270DC0062C9E4 /* Image.swift */; };
 		9F8F22FA2122DAA100F5617A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F22F92122DAA100F5617A /* AppDelegate.swift */; };
 		9F8F22FC2122DAA100F5617A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F22FB2122DAA100F5617A /* ViewController.swift */; };
 		9F8F22FF2122DAA100F5617A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F22FD2122DAA100F5617A /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		30F0CD8E6F48CA4BEF239691 /* Pods_DroneSimulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DroneSimulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8377F352983F31BE635E4001 /* Pods-DroneSimulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DroneSimulator.release.xcconfig"; path = "Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator.release.xcconfig"; sourceTree = "<group>"; };
+		9F184F53213270DC0062C9E4 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		9F8F22F62122DAA100F5617A /* DroneSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroneSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F8F22F92122DAA100F5617A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F8F22FB2122DAA100F5617A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9F184F52213270C40062C9E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F184F53213270DC0062C9E4 /* Image.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9F8F22ED2122DAA100F5617A = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +90,7 @@
 		9F8F22F82122DAA100F5617A /* DroneSimulator */ = {
 			isa = PBXGroup;
 			children = (
+				9F184F52213270C40062C9E4 /* Model */,
 				9F8F22F92122DAA100F5617A /* AppDelegate.swift */,
 				9F8F22FB2122DAA100F5617A /* ViewController.swift */,
 				9F8F22FD2122DAA100F5617A /* Main.storyboard */,
@@ -204,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F8F22FC2122DAA100F5617A /* ViewController.swift in Sources */,
+				9F184F54213270DC0062C9E4 /* Image.swift in Sources */,
 				9F8F22FA2122DAA100F5617A /* AppDelegate.swift in Sources */,
 				9F8F23022122DAA100F5617A /* DroneSimulator.xcdatamodeld in Sources */,
 			);
