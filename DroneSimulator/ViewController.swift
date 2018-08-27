@@ -46,8 +46,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.backgroundColor = UIColor.white
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
 		
-		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
-		
+//		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
+		collectionView?.contentInset.top = 50
 		collectionView?.dragInteractionEnabled = true
 
 		
@@ -110,7 +110,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: 300, height: view.frame.height)
+		return CGSize(width: 300, height: view.frame.height/2)
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath{
@@ -214,19 +214,27 @@ class CustomCell: UICollectionViewCell {
 		return label
 	}()
 	
-	var imageView:UIImageView = UIImageView()
+	var imageView:UIImageView = {
+		let image = UIImageView()
+		image.translatesAutoresizingMaskIntoConstraints = false
+		return image
+	}()
 	
 	func setupViews(){
 		imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
 		customView.addSubview(imageView)
 		customView.addSubview(nameLabel)
 		backgroundColor = UIColor(displayP3Red: 0.99, green: 0.77, blue: 0.32, alpha: 1.0)
+		
+		
 		addSubview(customView)
 		
-		
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,
-			"v1": nameLabel]))
+		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]-8-[v2]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":customView ,"v1":imageView,"v2":nameLabel]))
+		
+//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
+		
+//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1": nameLabel]))
+		nameLabel.centerXAnchor.constraint(equalTo: customView.centerXAnchor)
 	}
 }
