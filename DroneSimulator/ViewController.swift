@@ -171,12 +171,24 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	func createButton(){
 		let submitBtn = UIButton()
 		
-		submitBtn.frame = CGRect(x: 50, y: 100, width: 150, height: 50)
+//		submitBtn.frame = CGRect(x: 500, y: 700, width: 150, height: 50)
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
 		submitBtn.tintColor = UIColor.black
+		
 		submitBtn.setTitleColor(UIColor.blue, for: .normal)
+		
 		self.view.addSubview(submitBtn)
+		submitBtn.translatesAutoresizingMaskIntoConstraints = false
+		
+		submitBtn.centerXAnchor.constraint(equalTo:view.centerXAnchor)
+			.isActive = true
+		submitBtn.heightAnchor.constraint(equalToConstant: 50)
+			.isActive = true
+		submitBtn.widthAnchor.constraint(equalToConstant: 150)
+			.isActive = true
+		submitBtn.centerYAnchor.constraint(equalTo:view.centerYAnchor,constant:300)
+			.isActive = true
 	}
 	
 	@objc func submit(sender: UIButton){
