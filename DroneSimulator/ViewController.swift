@@ -40,7 +40,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			}
 		}
 		
-		navigationItem.title = "DroneSimulator"
+		navigationItem.title = "Multi Drone Path Planning"
 		createButton()
 		
 		collectionView?.backgroundColor = UIColor.white
@@ -236,6 +236,7 @@ class CustomCell: UICollectionViewCell {
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]-8-[v2]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":customView ,"v1":imageView,"v2":nameLabel]))
 		
+		imageView.centerYAnchor = customView
 //		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
 		
 //		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1": nameLabel]))
