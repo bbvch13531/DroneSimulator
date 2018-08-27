@@ -12,8 +12,8 @@ import Alamofire
 class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,  UICollectionViewDataSourcePrefetching {
 	
 	let customCellIdentifier = "customCellIdentifier"
-	var imageArr = [UIImage(named: "soohorang")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "google_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "tomato")!,UIImage(named: "ssulogo")!]
-//	lazy var imageFilename = ["양철지붕","최저임금","돌팔매","google_chrome_logo","logo-quantum","tomato","ssulogo"]
+	var imageArr = [UIImage(named: "pentagon_drone")!,UIImage(named: "drone_drone")!,UIImage(named: "soohorang_drone")!,UIImage(named: "snowboard_drone")!,UIImage(named: "bird_drone")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "square_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "ssulogo")!]
+	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
 	lazy var imageId = [String]()
 	
 	lazy var customItems:Int = imageArr.count
@@ -90,7 +90,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			cell.nameLabel.text = nil
 		}
 		else {
-			cell.nameLabel.text = self.imageId[indexPath.row]
+//			cell.nameLabel.text = self.imageId[indexPath.row]
+			cell.nameLabel.text = self.imageFilename[indexPath.row]
 		}
 		return cell
 	}
@@ -215,6 +216,7 @@ class CustomCell: UICollectionViewCell {
 	
 	let nameLabel: UILabel = {
 		let label = UILabel()
+		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -226,20 +228,24 @@ class CustomCell: UICollectionViewCell {
 	}()
 	
 	func setupViews(){
-		imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+		imageView = UIImageView(frame: CGRect(x: 25, y: 0, width: 250, height: 250))
 		customView.addSubview(imageView)
 		customView.addSubview(nameLabel)
-		backgroundColor = UIColor.lightGray
+		
+		// Set backgroundColor
+		backgroundColor = UIColor(red:0.83, green:0.83, blue:0.83, alpha:1.0)
 		
 		addSubview(customView)
 		
-		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]-8-[v2]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":customView ,"v1":imageView,"v2":nameLabel]))
+		self.layer.cornerRadius = 15
 		
-		imageView.centerYAnchor = customView
+//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1":nameLabel]))
+//
+		imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
 //		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
 		
 //		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1": nameLabel]))
-		nameLabel.centerXAnchor.constraint(equalTo: customView.centerXAnchor)
+		nameLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor)
 	}
 }
