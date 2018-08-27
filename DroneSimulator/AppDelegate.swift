@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.scrollDirection = .horizontal
-		flowLayout.minimumLineSpacing = 0
-		flowLayout.minimumInteritemSpacing = 0
+		flowLayout.minimumLineSpacing = 10
+		flowLayout.minimumInteritemSpacing = 10
 		let customCollectionViewController = CustomCollectionViewController(collectionViewLayout: flowLayout)
 		
 		window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
