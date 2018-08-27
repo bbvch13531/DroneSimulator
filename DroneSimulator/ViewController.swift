@@ -171,7 +171,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	func createButton(){
 		let submitBtn = UIButton()
 		
-//		submitBtn.frame = CGRect(x: 500, y: 700, width: 150, height: 50)
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
 		submitBtn.tintColor = UIColor.black
@@ -224,7 +223,10 @@ class CustomCell: UICollectionViewCell {
 		backgroundColor = UIColor(displayP3Red: 0.99, green: 0.77, blue: 0.32, alpha: 1.0)
 		addSubview(customView)
 		
+		
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,
+			"v1": nameLabel]))
 	}
 }
