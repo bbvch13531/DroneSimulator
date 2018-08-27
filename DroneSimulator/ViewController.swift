@@ -47,7 +47,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
 		
 //		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
-		collectionView?.contentInset.top = 50
+		collectionView?.contentInset.top = 0
 		collectionView?.dragInteractionEnabled = true
 
 		
@@ -174,8 +174,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
 		submitBtn.tintColor = UIColor.black
+//		let defaultBlue = UIColor(colorWithRed:0.0, green:122.0/255.0, blue:1.0, alpha:1.0)
 		
-		submitBtn.setTitleColor(UIColor.blue, for: .normal)
+		submitBtn.setTitleColor(UIView().tintColor, for: .normal)
+		submitBtn.layer.cornerRadius = 10
+		submitBtn.layer.borderWidth = 1
+		
+		submitBtn.layer.borderColor = UIView().tintColor.cgColor
 		
 		self.view.addSubview(submitBtn)
 		submitBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -186,7 +191,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			.isActive = true
 		submitBtn.widthAnchor.constraint(equalToConstant: 150)
 			.isActive = true
-		submitBtn.centerYAnchor.constraint(equalTo:view.centerYAnchor,constant:300)
+		submitBtn.centerYAnchor.constraint(equalTo:view.centerYAnchor,constant:350)
 			.isActive = true
 	}
 	
@@ -224,8 +229,7 @@ class CustomCell: UICollectionViewCell {
 		imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
 		customView.addSubview(imageView)
 		customView.addSubview(nameLabel)
-		backgroundColor = UIColor(displayP3Red: 0.99, green: 0.77, blue: 0.32, alpha: 1.0)
-		
+		backgroundColor = UIColor.lightGray
 		
 		addSubview(customView)
 		
