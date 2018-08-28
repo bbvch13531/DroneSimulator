@@ -125,6 +125,10 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		imageId[proposedIndexPath.row] = imageId[originalIndexPath.row]
 		imageId[originalIndexPath.row] = tmpId
 		
+		let tmpName = imageFilename[proposedIndexPath.row]
+		imageFilename[proposedIndexPath.row] = imageFilename[originalIndexPath.row]
+		imageFilename[originalIndexPath.row] = tmpName
+		
 		return proposedIndexPath
 	}
 	
