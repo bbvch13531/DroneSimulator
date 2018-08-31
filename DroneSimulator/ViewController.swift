@@ -13,10 +13,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	let submitBtn = UIButton()
 	let pathNameField = UITextField()
 	let customCellIdentifier = "customCellIdentifier"
-	var imageArr = [UIImage(named: "pentagon_drone")!,UIImage(named: "drone_drone")!,UIImage(named: "soohorang_drone")!,UIImage(named: "snowboard_drone")!,UIImage(named: "bird_drone")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "square_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "ssulogo")!]
-	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
-	lazy var imageId = [String]()
+//	var imageArr = [UIImage(named: "pentagon_drone")!,UIImage(named: "drone_drone")!,UIImage(named: "soohorang_drone")!,UIImage(named: "snowboard_drone")!,UIImage(named: "bird_drone")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "square_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "ssulogo")!]
+//	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
+//	lazy var imageId = [String]()
 	
+	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
+	lazy var imageFilename = ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
+	lazy var imageId = ["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
 	lazy var customItems:Int = imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
@@ -164,8 +167,11 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 						if let object = array as? [String:Any]{
 							if let id = object["_id"] as? String {
 								print("\(id)\n")
-								self.imageId.append(id)
-								//						imageFilename.append(filename)
+//								self.imageId.append(id)
+								
+							}
+							if let filename = object["filename"] as? String {
+								self.imageFilename.append(filename)
 							}
 						}
 					}
@@ -219,13 +225,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	
 	@objc func submit(sender: UIButton){
 		let pathName = self.pathNameField.text!
-		var images = ["5b55b0aa0aef051c431f1112","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1115"]
+		
 		var params: Parameters = [
 			"rest" : 1,
 			"optimization" : 0,
 			"name" : pathName,
 			"algorithm" : "DinicAndMCMF",
-			"image": images
+			"image": imageId
 		]
 		
 		print(params["image"])
