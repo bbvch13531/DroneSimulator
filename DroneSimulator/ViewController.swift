@@ -47,7 +47,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
 		
 //		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
-		collectionView?.contentInset.top = 0
+		collectionView?.contentInset.top = -50
 		collectionView?.dragInteractionEnabled = true
 
 		
@@ -81,11 +81,10 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
 		
-		
 		let image: UIImage = imageArr[indexPath.row]
 		
 		cell.imageView.image = image
-//		print("cellForItemAt",indexPath.row, imageFilename.count)
+
 		if(imageId.count == 0) {
 			cell.nameLabel.text = nil
 		}
@@ -175,11 +174,12 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	func createButton(){
 		let submitBtn = UIButton()
+		let pathNameField = UITextField()
 		
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
 		submitBtn.tintColor = UIColor.black
-//		let defaultBlue = UIColor(colorWithRed:0.0, green:122.0/255.0, blue:1.0, alpha:1.0)
+
 		
 		submitBtn.setTitleColor(UIView().tintColor, for: .normal)
 		submitBtn.layer.cornerRadius = 10
@@ -187,8 +187,16 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		
 		submitBtn.layer.borderColor = UIView().tintColor.cgColor
 		
+		pathNameField.font = UIFont.systemFont(ofSize: 15)
+		pathNameField.borderStyle = UITextBorderStyle.roundedRect
+		pathNameField.placeholder = "Please input your path name"
+		pathNameField.textAlignment = .center
+		
 		self.view.addSubview(submitBtn)
+		self.view.addSubview(pathNameField)
+		
 		submitBtn.translatesAutoresizingMaskIntoConstraints = false
+		pathNameField.translatesAutoresizingMaskIntoConstraints = false
 		
 		submitBtn.centerXAnchor.constraint(equalTo:view.centerXAnchor)
 			.isActive = true
@@ -198,20 +206,26 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			.isActive = true
 		submitBtn.centerYAnchor.constraint(equalTo:view.centerYAnchor,constant:350)
 			.isActive = true
+		
+		
+		pathNameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		pathNameField.heightAnchor.constraint(equalToConstant: 50)
+			.isActive = true
+		pathNameField.widthAnchor.constraint(equalToConstant: 400)
+			.isActive = true
+		pathNameField.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant:250).isActive = true
 	}
 	
 	@objc func submit(sender: UIButton){
 		
-		var images = ["5b55b11f0aef051c431f111d","5b55b11f0aef051c431f111f"]
 		var params: Parameters = [
 			"rest" : 1,
 			"optimization" : 0,
 			"name" : "kyiOStest1",
 			"algorithm" : "DinicAndMCMF",
-			"image": images
+			"image": imageId
 		]
 		
-		let addId: [String:Any] = ["image":"5b55b11f0aef051c431f111d"];
 		
 		print(params["image"])
 		let encoding = URLEncoding(arrayEncoding: .noBrackets)
@@ -265,7 +279,7 @@ class CustomCell: UICollectionViewCell {
 		
 //		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1":nameLabel]))
-//
+		
 		imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
 //		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
 		
