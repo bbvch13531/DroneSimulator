@@ -10,7 +10,8 @@ import UIKit
 import Alamofire
 
 class CustomCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,  UICollectionViewDataSourcePrefetching {
-	
+	let submitBtn = UIButton()
+	let pathNameField = UITextField()
 	let customCellIdentifier = "customCellIdentifier"
 	var imageArr = [UIImage(named: "pentagon_drone")!,UIImage(named: "drone_drone")!,UIImage(named: "soohorang_drone")!,UIImage(named: "snowboard_drone")!,UIImage(named: "bird_drone")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "square_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "ssulogo")!]
 	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
@@ -173,8 +174,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		}
 	}
 	func createButton(){
-		let submitBtn = UIButton()
-		let pathNameField = UITextField()
+//		let submitBtn = UIButton()
+//		let pathNameField = UITextField()
 		
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
@@ -217,15 +218,15 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	@objc func submit(sender: UIButton){
-		
+		let pathName = self.pathNameField.text!
+		var images = ["5b55b0aa0aef051c431f1112","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1115"]
 		var params: Parameters = [
 			"rest" : 1,
 			"optimization" : 0,
-			"name" : "kyiOStest1",
+			"name" : pathName,
 			"algorithm" : "DinicAndMCMF",
-			"image": imageId
+			"image": images
 		]
-		
 		
 		print(params["image"])
 		let encoding = URLEncoding(arrayEncoding: .noBrackets)
