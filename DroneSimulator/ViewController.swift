@@ -201,29 +201,28 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	@objc func submit(sender: UIButton){
-//		for element in imageFilename{
+		
+		var images = ["5b55b11f0aef051c431f111d","5b55b11f0aef051c431f111f"]
 		var params: Parameters = [
 			"rest" : 1,
 			"optimization" : 0,
-			"name" : "kyiOS",
-			"algorithm" : "DinicAndMCMF"
-			
+			"name" : "kyiOStest1",
+			"algorithm" : "DinicAndMCMF",
+			"image": images
 		]
 		
 		let addId: [String:Any] = ["image":"5b55b11f0aef051c431f111d"];
 		
-		params.updateValue("5b55b11f0aef051c431f111d", forKey: "image");
-		params.updateValue("5b55b11f0aef051c431f111f", forKey: "image");
-//		for (index,element) in imageId {
-//			params.updateValue(<#T##value: Any##Any#>, forKey: <#T##String#>)
-//		}
-		
-		
-		Alamofire.request("http://neinsys.io:5000/findPath", method: .post, parameters: params).responseJSON { response in
-			
+		print(params["image"])
+		let encoding = URLEncoding(arrayEncoding: .noBrackets)
+		let request = Alamofire.request("http://neinsys.io:5000/findPath", method: .post, parameters: params, encoding:encoding)
+			.validate(contentType: ["multipart/form-data"])
+			.response { response in
+//			debugPrint(response)
 			print("\(response)")
 			
 		}
+//		debugPrint(request)
 	}
 }
 
