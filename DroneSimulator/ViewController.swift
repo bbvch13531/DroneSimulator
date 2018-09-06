@@ -18,9 +18,12 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 //	lazy var imageId = [String]()
 	
 	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
-	lazy var imageFilename = ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
-	lazy var imageId = ["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
-	lazy var customItems:Int = imageArr.count
+	lazy var imageFilename = [String]()
+//		= ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
+	lazy var imageId = [String]()
+//		["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
+	lazy var customItems:Int = imageId.count
+//		imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
 	
@@ -168,7 +171,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 						if let object = array as? [String:Any]{
 							if let id = object["_id"] as? String {
 								print("\(id)\n")
-//								self.imageId.append(id)
+								self.imageId.append(id)
 								
 							}
 							if let filename = object["filename"] as? String {
@@ -214,7 +217,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			.isActive = true
 		submitBtn.centerYAnchor.constraint(equalTo:view.centerYAnchor,constant:350)
 			.isActive = true
-				
+		
 		pathNameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		pathNameField.heightAnchor.constraint(equalToConstant: 50)
 			.isActive = true
