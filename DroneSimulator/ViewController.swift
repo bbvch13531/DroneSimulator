@@ -120,6 +120,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath{
 		
 		// Swap dragging items
+		// TODO: Using swap methods
 		let tmpImage = imageArr[proposedIndexPath.row]
 		imageArr[proposedIndexPath.row] = imageArr[originalIndexPath.row]
 		imageArr[originalIndexPath.row] = tmpImage
@@ -213,8 +214,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			.isActive = true
 		submitBtn.centerYAnchor.constraint(equalTo:view.centerYAnchor,constant:350)
 			.isActive = true
-		
-		
+				
 		pathNameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		pathNameField.heightAnchor.constraint(equalToConstant: 50)
 			.isActive = true
