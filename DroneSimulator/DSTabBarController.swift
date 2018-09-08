@@ -12,16 +12,22 @@ class DSTabBarController: UITabBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		let filteringImageController = FilteringImageController()
+		let navFilterController = UINavigationController(rootViewController: filteringImageController)
+		navFilterController.tabBarItem.title = "Filtering"
+		
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.scrollDirection = .horizontal
 		flowLayout.minimumLineSpacing = 10
 		flowLayout.minimumInteritemSpacing = 10
 		
 		let customCollectionViewController = CustomCollectionViewController(collectionViewLayout: flowLayout)
-		let navController = UINavigationController(rootViewController: customCollectionViewController)
-		navController.tabBarItem.title = "Make Path"
+		let navCollectionController = UINavigationController(rootViewController: customCollectionViewController)
+		navCollectionController.tabBarItem.title = "Make Path"
 		
-		viewControllers = [navController]
+		
+		
+		viewControllers = [navFilterController,navCollectionController]
 
 	}
 }
