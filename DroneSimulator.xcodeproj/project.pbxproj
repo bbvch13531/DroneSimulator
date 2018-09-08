@@ -68,6 +68,8 @@
 		9FB7DB582143E36000A4A75A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		9FB7DB5B2143E36000A4A75A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		9FB7DB5D2143E36000A4A75A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FB7DB652143EAAA00A4A75A /* ImageExportor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImageExportor.entitlements; sourceTree = "<group>"; };
+		9FB7DB662143EAB600A4A75A /* DroneSimulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroneSimulator.entitlements; sourceTree = "<group>"; };
 		E2D78E419ED8577DA16083E6 /* Pods-DroneSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DroneSimulator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 		9F8F22F82122DAA100F5617A /* DroneSimulator */ = {
 			isa = PBXGroup;
 			children = (
+				9FB7DB662143EAB600A4A75A /* DroneSimulator.entitlements */,
 				9F184F52213270C40062C9E4 /* Model */,
 				9F8F22F92122DAA100F5617A /* AppDelegate.swift */,
 				9FB7DB4E2143A51300A4A75A /* DSTabBarController.swift */,
@@ -159,6 +162,7 @@
 		9FB7DB572143E36000A4A75A /* ImageExportor */ = {
 			isa = PBXGroup;
 			children = (
+				9FB7DB652143EAAA00A4A75A /* ImageExportor.entitlements */,
 				9FB7DB582143E36000A4A75A /* ShareViewController.swift */,
 				9FB7DB5A2143E36000A4A75A /* MainInterface.storyboard */,
 				9FB7DB5D2143E36000A4A75A /* Info.plist */,
@@ -220,9 +224,19 @@
 				TargetAttributes = {
 					9F8F22F52122DAA100F5617A = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					9FB7DB552143E36000A4A75A = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -503,10 +517,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DroneSimulator/DroneSimulator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8ZMC86H7GX;
 				INFOPLIST_FILE = DroneSimulator/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = bbvch13531.DroneSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -520,10 +538,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DroneSimulator/DroneSimulator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8ZMC86H7GX;
 				INFOPLIST_FILE = DroneSimulator/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = bbvch13531.DroneSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -535,10 +557,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 06004B42AC3563ED890F0D43 /* Pods-ImageExportor.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImageExportor/ImageExportor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8ZMC86H7GX;
 				INFOPLIST_FILE = ImageExportor/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = bbvch13531.DroneSimulator.ImageExportor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -551,10 +578,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9BA64D5E024B907F0E4B670D /* Pods-ImageExportor.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImageExportor/ImageExportor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8ZMC86H7GX;
 				INFOPLIST_FILE = ImageExportor/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = bbvch13531.DroneSimulator.ImageExportor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
