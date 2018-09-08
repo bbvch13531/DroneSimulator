@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var imageFileNameFromAPI = [String]()
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		
-		var theViewController = CustomCollectionViewController()
-		var appDelegate = UIApplication.shared.delegate as! AppDelegate
+		let theViewController = CustomCollectionViewController()
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		appDelegate.myViewController = theViewController
 		
 //		DispatchQueue.global().sync{
@@ -117,9 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func parseJSON(myViewController:CustomCollectionViewController){
-		
-		
-		
+				
 		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").responseJSON { response in
 			
 			if let json = response.result.value {

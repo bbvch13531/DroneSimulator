@@ -5,3 +5,7 @@ use_frameworks!
 target 'DroneSimulator' do
     pod 'Alamofire', '~> 4.7'
 end
+
+target 'ImageExportor' do
+    pod 'Alamofire', '~>4.7'
+end

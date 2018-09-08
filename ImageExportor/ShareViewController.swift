@@ -8,6 +8,7 @@
 
 import UIKit
 import Social
+import Alamofire
 
 class ShareViewController: SLComposeServiceViewController {
 

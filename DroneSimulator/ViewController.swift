@@ -45,8 +45,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			}
 			do{
 				self.parseJSON()
-			}catch{
-				print(error.localizedDescription)
 			}
 		}
 		
@@ -232,7 +230,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	@objc func submit(sender: UIButton){
 		let pathName = self.pathNameField.text!
 		
-		var params: Parameters = [
+		let params: Parameters = [
 			"rest" : 1,
 			"optimization" : 0,
 			"name" : pathName,
@@ -240,9 +238,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			"image": imageId
 		]
 		
-		print(params["image"])
+		
 		let encoding = URLEncoding(arrayEncoding: .noBrackets)
-		let request = Alamofire.request("http://neinsys.io:5000/findPath", method: .post, parameters: params, encoding:encoding)
+		Alamofire.request("http://neinsys.io:5000/findPath", method: .post, parameters: params, encoding:encoding)
 			.validate(contentType: ["multipart/form-data"])
 			.response { response in
 //			debugPrint(response)
