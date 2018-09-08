@@ -15,6 +15,7 @@
 		9F8F23022122DAA100F5617A /* DroneSimulator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F23002122DAA100F5617A /* DroneSimulator.xcdatamodeld */; };
 		9F8F23042122DAA200F5617A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F23032122DAA200F5617A /* Assets.xcassets */; };
 		9F8F23072122DAA200F5617A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F23052122DAA200F5617A /* LaunchScreen.storyboard */; };
+		9FB7DB4F2143A51300A4A75A /* DSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7DB4E2143A51300A4A75A /* DSTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		9F8F23032122DAA200F5617A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F8F23062122DAA200F5617A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F8F23082122DAA200F5617A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FB7DB4E2143A51300A4A75A /* DSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSTabBarController.swift; sourceTree = "<group>"; };
 		E2D78E419ED8577DA16083E6 /* Pods-DroneSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DroneSimulator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DroneSimulator/Pods-DroneSimulator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 			children = (
 				9F184F52213270C40062C9E4 /* Model */,
 				9F8F22F92122DAA100F5617A /* AppDelegate.swift */,
+				9FB7DB4E2143A51300A4A75A /* DSTabBarController.swift */,
 				9F8F22FB2122DAA100F5617A /* ViewController.swift */,
 				9F8F22FD2122DAA100F5617A /* Main.storyboard */,
 				9F8F23032122DAA200F5617A /* Assets.xcassets */,
@@ -217,6 +220,7 @@
 				9F8F22FC2122DAA100F5617A /* ViewController.swift in Sources */,
 				9F184F54213270DC0062C9E4 /* Image.swift in Sources */,
 				9F8F22FA2122DAA100F5617A /* AppDelegate.swift in Sources */,
+				9FB7DB4F2143A51300A4A75A /* DSTabBarController.swift in Sources */,
 				9F8F23022122DAA100F5617A /* DroneSimulator.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

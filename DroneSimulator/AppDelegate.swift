@@ -42,13 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
 		
-		let flowLayout = UICollectionViewFlowLayout()
-		flowLayout.scrollDirection = .horizontal
-		flowLayout.minimumLineSpacing = 10
-		flowLayout.minimumInteritemSpacing = 10
-		let customCollectionViewController = CustomCollectionViewController(collectionViewLayout: flowLayout)
+		window?.rootViewController = DSTabBarController()
 		
-		window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
 		return true
 	}
 
