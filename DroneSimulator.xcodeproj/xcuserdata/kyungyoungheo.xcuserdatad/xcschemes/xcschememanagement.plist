@@ -9,6 +9,24 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>ImageExportor.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>9F8F22F52122DAA100F5617A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9FB7DB552143E36000A4A75A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>

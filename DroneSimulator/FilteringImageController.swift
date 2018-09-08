@@ -7,9 +7,21 @@
 //
 
 import UIKit
+import Alamofire
 
 class FilteringImageController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		createButton()
+	}
+	
+	func createButton(){
+		
+		// Image from extension
+		// Image ID
+		// Number of points
+		// Interval of points
+		// Total size of image
 	}
 }
