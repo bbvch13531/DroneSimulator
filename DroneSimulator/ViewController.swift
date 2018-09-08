@@ -17,21 +17,24 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 //	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
 //	lazy var imageId = [String]()
 	
-	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
+	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
+	
+	
+	
 	lazy var imageFilename = [String]()
 //		= ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
-	lazy var imageId = [String]()
+	var imageId = [String]()
 //		["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
-	lazy var customItems:Int = imageId.count
+	lazy var customItems:Int = 10
 //		imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+//		self.collectionView?.reloadData()
 		collectionView?.prefetchDataSource = self
-		
+		print("imageId.count = \(imageId.count), imageFilename.count = \(imageFilename.count)")
 		//서버와 통신해서 imageArr에 텍스트 넣기
 		
 		DispatchQueue.global().async{
@@ -56,12 +59,12 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 //		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
 		collectionView?.contentInset.top = -50
 		collectionView?.dragInteractionEnabled = true
-
 		
 		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
 		collectionView?.addGestureRecognizer(longPressGesture)
 		
 	}
+	
 	/*
 	MARK: Implement UICollectionViewDataSourcePrefetching protocol
 	*/
@@ -88,7 +91,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
 		
-		let image: UIImage = imageArr[indexPath.row]
+		let image: UIImage = imageArr[0]
 		
 		cell.imageView.image = image
 

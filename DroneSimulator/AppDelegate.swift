@@ -8,13 +8,37 @@
 
 import UIKit
 import CoreData
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+	var myViewController: CustomCollectionViewController!
 	var window: UIWindow?
-
+	var imageIdFromAPI = [String]()
+	var imageFileNameFromAPI = [String]()
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+		
+		var theViewController = CustomCollectionViewController()
+		var appDelegate = UIApplication.shared.delegate as! AppDelegate
+		appDelegate.myViewController = theViewController
+		
+//		DispatchQueue.global().sync{
+//			defer{
+//				DispatchQueue.main.async {
+////					appDelegate.myViewController.collectionView?.reloadData()
+//				}
+//			}
+//			do{
+//				self.parseJSON(myViewController: appDelegate.myViewController)
+//			}catch{
+//				print(error.localizedDescription)
+//			}
+//		}
+		
+		
+		
+//		Thread.sleep(forTimeInterval: 1.0)
+		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
 		
@@ -95,6 +119,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
 	        }
 	    }
+	}
+	
+	func parseJSON(myViewController:CustomCollectionViewController){
+		
+		
+		
+		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").responseJSON { response in
+			
+			if let json = response.result.value {
+				if let objarray = json as? [Any] {
+					
+					for array in objarray {
+						if let object = array as? [String:Any]{
+							if let id = object["_id"] as? String {
+								print("\(id)\n")
+								myViewController.imageId.append(id)
+								
+							}
+							if let filename = object["filename"] as? String {
+								print("\(filename)\n")
+								myViewController.imageFilename.append(filename)
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 }
