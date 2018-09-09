@@ -60,6 +60,11 @@ class ShareViewController: SLComposeServiceViewController {
 							if let uploadImgData = UIImagePNGRepresentation(imgData) {
 								
 								self.uploadImage(data: uploadImgData)
+								let dict: [String : Any] = ["imgData" :  uploadImgData, "name" : self.contentText]
+								let userDefault = UserDefaults.standard
+								userDefault.addSuite(named: "group.DroneSimulator")
+								userDefault.set(dict, forKey: "img")
+								userDefault.synchronize()
 							}
 							
 							print("imgData = \(imgData), item = \(item)")
