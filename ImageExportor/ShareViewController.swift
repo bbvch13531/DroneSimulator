@@ -65,9 +65,13 @@ class ShareViewController: SLComposeServiceViewController {
 								userDefault.addSuite(named: "group.DroneSimulator")
 								userDefault.set(dict, forKey: "imgData")
 								userDefault.synchronize()
+								let dicData = userDefault.value(forKey: "imgData") as? NSDictionary
+								print("Loaded in userDefaults \(dicData)")
+								
+								self.testAppGroup(dic: dict)
 							}
 							
-							print("imgData = \(imgData), item = \(item)")
+//							print("imgData = \(imgData), item = \(item)")
 							
 						} catch let error {
 							print(error)
@@ -109,5 +113,8 @@ class ShareViewController: SLComposeServiceViewController {
 		}
 		)
 	}
-	
+	func testAppGroup(dic:[String:Any]){
+		
+		debugPrint("test App group : \(dic)")
+	}
 }

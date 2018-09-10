@@ -29,6 +29,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 //		imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
+	var swipeGesture: UISwipeGestureRecognizer!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -61,6 +62,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
 		collectionView?.addGestureRecognizer(longPressGesture)
 		
+		swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.onSwipe(sender:)))
+		swipeGesture.direction = UISwipeGestureRecognizerDirection.up
+		collectionView?.addGestureRecognizer(swipeGesture)
 	}
 	
 	/*
@@ -89,7 +93,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
 		
-		let image: UIImage = imageArr[0]
+		let image: UIImage = imageArr[indexPath.row]
 		
 		cell.imageView.image = image
 
@@ -138,6 +142,46 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		imageFilename[originalIndexPath.row] = tmpName
 		
 		return proposedIndexPath
+	}
+	
+	// swipe Gesture
+	@objc func onSwipe(sender:UISwipeGestureRecognizer){
+		
+		let indexPath = collectionView?.indexPathForItem(at: sender.location(in: collectionView))
+		let cell = collectionView?.cellForItem(at: indexPath!)
+		let itemIndex = self.collectionView!.indexPath(for: cell!)!.item
+//		let cell = sender.view as! UICollectionView
+//		let itemIndex = self.collectionView!.indexPath(for:cell)!.item
+//		yourArray.removeAtIndex(itemIndex)
+		var customCell = cell as! CustomCell
+//		collectionView?.deleteItems(at: [IndexPath(index: itemIndex)])
+		
+		
+		
+		
+			if sender.state == UIGestureRecognizerState.ended {
+				
+				self.view.layoutIfNeeded()
+				UIView.animate(withDuration: 0.2, animations: {(
+					//				getCell?.frame.origin.y = CGPoint(x:(getCell?.frame.x)!,y:(getCell?.frame.y)!-100)
+					//				cell.center = CGPoint(x:cell.center.x,y:cell.center.y-100)
+					
+					customCell.center = CGPoint(x:(customCell.center.x),y:(customCell.center.y)-600)
+					)}
+					,completion: {(finished:Bool) in
+						self.imageId.remove(at: itemIndex)
+						self.imageFilename.remove(at: itemIndex)
+						self.imageArr.remove(at: itemIndex)
+						
+						self.customItems -= 1
+						self.collectionView!.reloadData()
+
+				})
+			
+		
+		}
+//		Thread.sleep(forTimeInterval: 0.3)
+		
 	}
 	
 	@objc func handleLongGesture(gesture: UILongPressGestureRecognizer){
