@@ -63,7 +63,7 @@ class ShareViewController: SLComposeServiceViewController {
 								let dict: [String : Any] = ["imgData" :  uploadImgData, "name" : self.contentText]
 								let userDefault = UserDefaults.standard
 								userDefault.addSuite(named: "group.DroneSimulator")
-								userDefault.set(dict, forKey: "img")
+								userDefault.set(dict, forKey: "imgData")
 								userDefault.synchronize()
 							}
 							
