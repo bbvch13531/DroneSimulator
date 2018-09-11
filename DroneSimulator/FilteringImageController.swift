@@ -63,6 +63,10 @@ class FilteringImageController: UIViewController {
 		}else {
 			print("fail to get userDefault")
 		}
+		if let imageId = userDefault.value(forKey: "imageId"){
+			let id = imageId as! String
+			self.imageIdFromData.text = id
+		}
 	}
 	
 	@objc func keyboardWillShow(notification:NSNotification){
@@ -94,6 +98,10 @@ class FilteringImageController: UIViewController {
 		pointNumber.textAlignment = .center
 		leafSize.textAlignment = .center
 		widthSize.textAlignment = .center
+		
+		pointNumberField.textAlignment = .center
+		leafSizeField.textAlignment = .center
+		widthSizeField.textAlignment = .center
 		
 		var submitBtn = UIButton()
 		submitBtn.setTitle("Submit", for: .normal)
@@ -153,6 +161,9 @@ class FilteringImageController: UIViewController {
 		setLabelSizeTo(label: widthSize, width: 300, height: 150)
 		setLabelSizeTo(label: imageIdFromData, width: 300, height: 150)
 		
+		pointNumberField.placeholder = "300"
+		leafSizeField.placeholder = "1"
+		widthSizeField.placeholder = "50"
 		
 		setTextFieldSizeTo(textField: pointNumberField, width: 150, height: 40)
 		setTextFieldSizeTo(textField: leafSizeField, width: 150, height: 40)
@@ -172,7 +183,23 @@ class FilteringImageController: UIViewController {
 	}
 	
 	@objc func submit(sender:UIButton){
-		print("submit")
+		let imageId = self.imageIdFromData.text!
+		let number = self.pointNumberField.text!
+		let leaf_size = self.leafSizeField.text!
+		let width = self.widthSizeField.text!
+		
+		let params: Parameters = [
+			"image" : imageId,
+			"number" : 300,
+			"leaf_size" : 1,
+			"width" : 50
+		]
+		
+		Alamofire.request("http://neinsys.io:5000/filteringImage", method: .post, parameters: params)
+
+			.response { response in
+				print(response)
+		}
 	}
 	func setConstraintToLable(label: UILabel,xConstant: CGFloat, yConstant: CGFloat){
 		label.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor, constant: xConstant).isActive = true
@@ -190,10 +217,8 @@ class FilteringImageController: UIViewController {
 		textField.widthAnchor.constraint(equalToConstant: width).isActive = true
 		textField.heightAnchor.constraint(equalToConstant: height).isActive = true
 	}
+	
 	func setBorderToTextField(){
-//		imageIdField.layer.borderColor = UIColor.gray.cgColor
-//		imageIdField.layer.borderWidth = 1
-//		imageIdField.layer.cornerRadius = 8.0
 		
 		pointNumberField.layer.borderColor = UIColor.gray.cgColor
 		pointNumberField.layer.borderWidth = 1
