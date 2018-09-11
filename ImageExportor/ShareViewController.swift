@@ -91,15 +91,9 @@ class ShareViewController: SLComposeServiceViewController {
 		
 		// get userDefault and set DicArr
 		
-		var originIdArr = self.userDefault?.value(forKey: "imageData") as? [String:Any]
+		
 		var lk = String()
 		
-		if originIdArr == nil {
-			print("invalid imageData in userDefault")
-			originIdArr = [String:Any]()
-		}
-		
-		print("originIdArr = \(originIdArr)")
 		
 		print("data = \(data)")
 		Alamofire.upload(
@@ -120,10 +114,9 @@ class ShareViewController: SLComposeServiceViewController {
 										if let id = dic["_id"] as? String {
 											print(id)
 
-											originIdArr?[id] = self.imageimage
 											lk = id
 
-											self.userDefault?.set(originIdArr, forKey: "imageData")
+											self.userDefault?.set(self.imageimage, forKey: id)
 											self.userDefault?.set(lk, forKey: "lastKey")
 											self.userDefault?.set(self.filename, forKey: "fileName")
 										}

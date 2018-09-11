@@ -17,12 +17,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	//	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
 	//	lazy var imageId = [String]()
 	
-	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
+	var imageArr = [UIImage]()
+	let userDefault = UserDefaults.standard
 	
 	lazy var imageFilename = [String]()
 	//		= ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
 	var imageId = [String]()
-	lazy var customItems:Int = 10
+	var customItems = Int()
 	//		imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
@@ -34,6 +35,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.prefetchDataSource = self
 		print("imageId.count = \(imageId.count), imageFilename.count = \(imageFilename.count)")
 		//서버와 통신해서 imageArr에 텍스트 넣기
+		userDefault.addSuite(named: "group.DroneSimulator")
 		
 		DispatchQueue.global().async{
 			defer{
@@ -45,10 +47,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 				self.parseJSON()
 			}
 		}
-		let userDefault = UserDefaults.standard
-		userDefault.addSuite(named: "group.DroneSimulator")
-		let tmp = userDefault.value(forKey: "imageData")
-		print("test userDefault \(tmp)")
 		
 		navigationItem.title = "Multi Drone Path Planning"
 		createButton()
@@ -193,14 +191,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	func parseJSON(){
-		Alamofire.request("http://neinsys.io:5000/api/imageListForFiltering").responseJSON { response in
+		Alamofire.request("http://neinsys.io:5000/api/imageList?order=t_des").responseJSON { response in
 			print("Request: \(response.request)")
 			print("Response: \(response.response)")
 			print("Error: \(response.error)")
 			
 			if let json = response.result.value {
-				//				print("JSON: \(json)")
-				print("alamofire : \(self.imageId.count)")
+				
 				if let objarray = json as? [Any] {
 					
 					for array in objarray {
@@ -208,15 +205,26 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 							if let id = object["_id"] as? String {
 								print("\(id)\n")
 								self.imageId.append(id)
+								let imgData = self.userDefault.object(forKey: id)
+								if imgData != nil {
+									self.imageArr.append(UIImage(data: imgData as! Data)!)
+								} 	else  {
+								self.imageArr.append(UIImage(named: "DroneSimulator")!)
+								}
+								
+								self.customItems = self.imageArr.count
 							}
 							if let filename = object["filename"] as? String {
 								self.imageFilename.append(filename)
 							}
+							
 						}
 					}
 				}
 			}
+			self.collectionView?.reloadData()
 		}
+		
 	}
 	func createButton(){
 		//		let submitBtn = UIButton()

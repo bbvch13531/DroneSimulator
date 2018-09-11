@@ -57,26 +57,21 @@ class FilteringImageController: UIViewController {
 		if let fn = userDefault.value(forKey: "fileName") as? String {
 			self.fileName = fn
 		}
-		if let dicArr = userDefault.value(forKey: "imageData")  {
+		if let img = userDefault.value(forKey: self.lastKey)  {
 			
-			self.dic = dicArr as! [String:Any]
-//			print("dict=\(dict)")
 //			let data = dict.value(forKey: "imgData") as! Data
 //			let str = dict.value(forKey: "name") as! String
-			let data = self.dic[lastKey] as! Data
+			let data = img as! Data
 			
 			self.imgView.image = UIImage(data: data)
 //			print("123123data = \(userDefault.value(forKey: "imgData") as? NSDictionary)")
 			self.filenameLabel.text = self.fileName
 			
-//			userDefault.removeObject(forKey: "imgData")
-			userDefault.synchronize()
-			
 		}else {
 			print("fail to get userDefault")
 		}
 		
-		self.imageIdFromData.text = lastKey
+		self.imageIdFromData.text = self.lastKey
 		
 	}
 	
@@ -223,11 +218,11 @@ class FilteringImageController: UIViewController {
 					if let value = imageArray[0] as? [String:Any] {
 						if let newId = value["_id"] as? String  {
 							print(newId)
-							self.dic[newId] = self.dic[self.lastKey]
-							
 							let userDefault = UserDefaults.standard
 							userDefault.addSuite(named: "group.DroneSimulator")
-							userDefault.set(self.dic,forKey:"imageData")
+							
+							let imgData = userDefault.value(forKey: self.lastKey)
+							userDefault.set(imgData,forKey:newId)
 							
 						}
 					}
