@@ -13,6 +13,9 @@ import Alamofire
 class ShareViewController: SLComposeServiceViewController {
 	let userDefault = UserDefaults(suiteName: "group.DroneSimulator")
 	var filename = String()
+	var imageimage = Data()
+		
+		
 	override func isContentValid() -> Bool {
 		// Do validation of contentText and/or NSExtensionContext attachments here
 		return true
@@ -45,25 +48,25 @@ class ShareViewController: SLComposeServiceViewController {
 						if let uploadImgData = UIImagePNGRepresentation(imgData) {
 							
 							self.uploadImage(data: uploadImgData)
-							var dictArr = [[ String: Any]]()
+							var dictArr = [[String: Any]]()
 							
+							/**/
+							self.imageimage = uploadImgData
+							/**/
 							
-							guard var originDict = self.userDefault?.value(forKey: "dataName") as? [[String:Any]] else {
-								print("invalid dictArr in userDefault")
-								return
-							}
-								
-//							var originDict: [String : Any] = self.userDefault?.value(forKey: "imgData") as! [String : Any]
-//							dictArr.append(originDict)
-
-							let dict: [String : Any] = ["imgData" :  uploadImgData, "name" : self.contentText]
-							originDict.append(dict)
+//							var originDict = self.userDefault?.value(forKey: "dataName") as? [[String: Any]]
+//
+////							var originDict: [String : Any] = self.userDefault?.value(forKey: "imgData") as! [String : Any]
+////							dictArr.append(originDict)
+//
+//							let dict: [String : Any] = ["imgData" :  uploadImgData, "name" : self.contentText]
+//							originDict.append(dict)
 
 							self.filename = self.contentText
 							//								userDefault.addSuite(named: "group.DroneSimulator")
 							
-							self.userDefault?.set(originDict, forKey: "dataName")
-							self.userDefault?.synchronize()
+//							self.userDefault?.set(originDict, forKey: "dataName")
+//							self.userDefault?.synchronize()
 //							let dicData = self.userDefault?.value(forKey: "imgData") as? NSDictionary
 							print("userDefault saved")
 						}
@@ -87,11 +90,14 @@ class ShareViewController: SLComposeServiceViewController {
 		]
 		
 		// get userDefault and set DicArr
-		var idArr = [String]()
-		guard var originIdArr = self.userDefault?.value(forKey: "id") as? [String] else {
+		
+		var originIdArr = self.userDefault?.value(forKey: "imageData") as? [String:Any]
+		
+		if originIdArr == nil {
 			print("invalid value in userDefault")
-			return
+			originIdArr = [String:Any]()
 		}
+		
 		print("originIdArr = \(originIdArr)")
 		
 		print("data = \(data)")
@@ -112,9 +118,10 @@ class ShareViewController: SLComposeServiceViewController {
 									if let dic = object as? [String:Any]{
 										if let id = dic["_id"] as? String {
 											print(id)
-											originIdArr.append(id)
+//											originIdArr?.append(id)
+											originIdArr?[id] = self.imageimage
 //											idArr.append(id)
-											self.userDefault?.set(originIdArr, forKey: "id")
+											self.userDefault?.set(originIdArr, forKey: "imageData")
 										}
 									}
 								}

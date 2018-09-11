@@ -19,12 +19,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	
 	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
 	
-	
-	
 	lazy var imageFilename = [String]()
 	//		= ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
 	var imageId = [String]()
-	//		["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
 	lazy var customItems:Int = 10
 	//		imageArr.count
 	

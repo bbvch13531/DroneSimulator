@@ -50,23 +50,25 @@ class FilteringImageController: UIViewController {
 		
 		
 		if let dicArr = userDefault.value(forKey: "dataName")  {
-			let dict = dicArr as? [[String:Any]]
+			let dict = dicArr as! [[String:Any]]
 //			print("dict=\(dict)")
-			let data = dict.value(forKey: "imgData") as! Data
-			let str = dict.value(forKey: "name") as! String
+//			let data = dict.value(forKey: "imgData") as! Data
+//			let str = dict.value(forKey: "name") as! String
+			let data = dict[0]["imgData"] as! Data
+			let str = dict[0]["name"] as! String
 			
 			self.imgView.image = UIImage(data: data)
 //			print("123123data = \(userDefault.value(forKey: "imgData") as? NSDictionary)")
 			self.filenameLabel.text = str
 			
-			userDefault.removeObject(forKey: "imgData")
+//			userDefault.removeObject(forKey: "imgData")
 			userDefault.synchronize()
 			
 		}else {
 			print("fail to get userDefault")
 		}
-		if let imageId = userDefault.value(forKey: "imageId"){
-			let id = imageId as! String
+		if let imageId = userDefault.value(forKey: "id") as? [String] {
+			let id = imageId[0]
 			self.imageIdFromData.text = id
 		}
 	}
