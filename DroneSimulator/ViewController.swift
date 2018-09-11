@@ -13,27 +13,27 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	let submitBtn = UIButton()
 	let pathNameField = UITextField()
 	let customCellIdentifier = "customCellIdentifier"
-//	var imageArr = [UIImage(named: "pentagon_drone")!,UIImage(named: "drone_drone")!,UIImage(named: "soohorang_drone")!,UIImage(named: "snowboard_drone")!,UIImage(named: "bird_drone")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "square_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "ssulogo")!]
-//	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
-//	lazy var imageId = [String]()
+	//	var imageArr = [UIImage(named: "pentagon_drone")!,UIImage(named: "drone_drone")!,UIImage(named: "soohorang_drone")!,UIImage(named: "snowboard_drone")!,UIImage(named: "bird_drone")!,UIImage(named: "Ironman")!,UIImage(named: "samsung")!,UIImage(named: "square_chrome_logo")!,UIImage(named: "logo-quantum")!,UIImage(named: "ssulogo")!]
+	//	lazy var imageFilename = ["Pentagon_drone","drone","Soohorang_drone","Snowboard_drone","Bird_drone","Samsung","IronMan","google_chrome_logo","firefox_logo","SSU_logo"]
+	//	lazy var imageId = [String]()
 	
 	var imageArr = [UIImage(named:"samsung")!,UIImage(named:"soohorang_drone")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"logo-quantum")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!,UIImage(named:"Ironman")!,UIImage(named:"square_chrome_logo")!]
 	
 	
 	
 	lazy var imageFilename = [String]()
-//		= ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
+	//		= ["Samsung","Soohorang_drone","Firefox","Ironman","Chrome"]
 	var imageId = [String]()
-//		["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
+	//		["5b55b0aa0aef051c431f1114","5b55b0aa0aef051c431f1116","5b55b0aa0aef051c431f1115","5b55b0aa0aef051c431f1119","5b55b0aa0aef051c431f1112"]
 	lazy var customItems:Int = 10
-//		imageArr.count
+	//		imageArr.count
 	
 	var longPressGesture: UILongPressGestureRecognizer!
 	var swipeGesture: UISwipeGestureRecognizer!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		self.collectionView?.reloadData()
+		//		self.collectionView?.reloadData()
 		collectionView?.prefetchDataSource = self
 		print("imageId.count = \(imageId.count), imageFilename.count = \(imageFilename.count)")
 		//서버와 통신해서 imageArr에 텍스트 넣기
@@ -55,7 +55,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.backgroundColor = UIColor.white
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
 		
-//		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
+		//		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
 		collectionView?.contentInset.top = -50
 		collectionView?.dragInteractionEnabled = true
 		
@@ -65,6 +65,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.onSwipe(sender:)))
 		swipeGesture.direction = UISwipeGestureRecognizerDirection.up
 		collectionView?.addGestureRecognizer(swipeGesture)
+		
+		
 	}
 	
 	/*
@@ -86,7 +88,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 	}
-
+	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
 		return customItems
 	}
@@ -96,20 +98,20 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		let image: UIImage = imageArr[indexPath.row]
 		
 		cell.imageView.image = image
-
+		
 		if(imageId.count == 0) {
 			cell.nameLabel.text = nil
 		}
 		else {
-//			cell.nameLabel.text = self.imageId[indexPath.row]
+			//			cell.nameLabel.text = self.imageId[indexPath.row]
 			cell.nameLabel.text = self.imageFilename[indexPath.row]
 		}
 		return cell
 	}
-//	override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
-//		cell.nameLabel.text = self.imageFilename[indexPath.row]
-//	}
+	//	override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+	//		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: customCellIdentifier, for: indexPath) as! CustomCell
+	//		cell.nameLabel.text = self.imageFilename[indexPath.row]
+	//	}
 	/*
 	Enable the use of moving items in UICollectionView
 	*/
@@ -118,7 +120,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 		print("start : \(sourceIndexPath.item), end : \(destinationIndexPath.item)")
-
+		
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -150,37 +152,26 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		let indexPath = collectionView?.indexPathForItem(at: sender.location(in: collectionView))
 		let cell = collectionView?.cellForItem(at: indexPath!)
 		let itemIndex = self.collectionView!.indexPath(for: cell!)!.item
-//		let cell = sender.view as! UICollectionView
-//		let itemIndex = self.collectionView!.indexPath(for:cell)!.item
-//		yourArray.removeAtIndex(itemIndex)
+		
 		var customCell = cell as! CustomCell
-//		collectionView?.deleteItems(at: [IndexPath(index: itemIndex)])
 		
-		
-		
-		
-			if sender.state == UIGestureRecognizerState.ended {
-				
-				self.view.layoutIfNeeded()
-				UIView.animate(withDuration: 0.2, animations: {(
-					//				getCell?.frame.origin.y = CGPoint(x:(getCell?.frame.x)!,y:(getCell?.frame.y)!-100)
-					//				cell.center = CGPoint(x:cell.center.x,y:cell.center.y-100)
-					
-					customCell.center = CGPoint(x:(customCell.center.x),y:(customCell.center.y)-600)
-					)}
-					,completion: {(finished:Bool) in
-						self.imageId.remove(at: itemIndex)
-						self.imageFilename.remove(at: itemIndex)
-						self.imageArr.remove(at: itemIndex)
-						
-						self.customItems -= 1
-						self.collectionView!.reloadData()
-
-				})
+		if sender.state == UIGestureRecognizerState.ended {
 			
-		
+			self.view.layoutIfNeeded()
+			UIView.animate(withDuration: 0.2, animations: {(
+				customCell.center = CGPoint(x:(customCell.center.x),y:(customCell.center.y)-600)
+				)}
+				,completion: {(finished:Bool) in
+					self.imageId.remove(at: itemIndex)
+					self.imageFilename.remove(at: itemIndex)
+					self.imageArr.remove(at: itemIndex)
+					
+					self.customItems -= 1
+					self.collectionView!.reloadData()
+			})			
+			
 		}
-//		Thread.sleep(forTimeInterval: 0.3)
+		//		Thread.sleep(forTimeInterval: 0.3)
 		
 	}
 	
@@ -229,13 +220,13 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		}
 	}
 	func createButton(){
-//		let submitBtn = UIButton()
-//		let pathNameField = UITextField()
+		//		let submitBtn = UIButton()
+		//		let pathNameField = UITextField()
 		
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
 		submitBtn.tintColor = UIColor.black
-
+		
 		
 		submitBtn.setTitleColor(UIView().tintColor, for: .normal)
 		submitBtn.layer.cornerRadius = 10
@@ -287,11 +278,11 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		Alamofire.request("http://neinsys.io:5000/findPath", method: .post, parameters: params, encoding:encoding)
 			.validate(contentType: ["multipart/form-data"])
 			.response { response in
-//			debugPrint(response)
-			print("\(response)")
-			
+				//			debugPrint(response)
+				print("\(response)")
+				
 		}
-//		debugPrint(request)
+		//		debugPrint(request)
 	}
 }
 
@@ -332,13 +323,13 @@ class CustomCell: UICollectionViewCell {
 		
 		self.layer.cornerRadius = 15
 		
-//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+		//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1":nameLabel]))
 		
 		imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
-//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
+		//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
 		
-//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1": nameLabel]))
+		//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1": nameLabel]))
 		nameLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor)
 	}
 }

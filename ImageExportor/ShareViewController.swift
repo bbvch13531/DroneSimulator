@@ -61,14 +61,14 @@ class ShareViewController: SLComposeServiceViewController {
 								
 								self.uploadImage(data: uploadImgData)
 								let dict: [String : Any] = ["imgData" :  uploadImgData, "name" : self.contentText]
-								let userDefault = UserDefaults.standard
-								userDefault.addSuite(named: "group.DroneSimulator")
-								userDefault.set(dict, forKey: "imgData")
-								userDefault.synchronize()
-								let dicData = userDefault.value(forKey: "imgData") as? NSDictionary
-								print("Loaded in userDefaults \(dicData)")
+								let userDefault = UserDefaults(suiteName: "group.DroneSimulator")
+//								userDefault.addSuite(named: "group.DroneSimulator")
+								userDefault?.set(dict, forKey: "imgData")
+								userDefault?.synchronize()
+								let dicData = userDefault?.value(forKey: "imgData") as? NSDictionary
 								
-								self.testAppGroup(dic: dict)
+								
+								self.testAppGroup(dic: dicData!)
 							}
 							
 //							print("imgData = \(imgData), item = \(item)")
@@ -113,7 +113,7 @@ class ShareViewController: SLComposeServiceViewController {
 		}
 		)
 	}
-	func testAppGroup(dic:[String:Any]){
+	func testAppGroup(dic:NSDictionary){
 		
 		debugPrint("test App group : \(dic)")
 	}
