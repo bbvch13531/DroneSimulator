@@ -20,10 +20,21 @@ class FilteringImageController: UIViewController {
 	var leafSizeField = UITextField()
 	var widthSize = UILabel()
 	var widthSizeField = UITextField()
+	var scrollView = UIScrollView()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.white
+		
+		scrollView = UIScrollView(frame: view.bounds)
+
+		self.view.addSubview(scrollView)
+		scrollView.contentSize = self.view.frame.size
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+		
 		print("viewDidLoad!!")
 		createButton()
 		
@@ -53,6 +64,23 @@ class FilteringImageController: UIViewController {
 			print("fail to get userDefault")
 		}
 	}
+	
+	@objc func keyboardWillShow(notification:NSNotification){
+		//give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
+		var userInfo = notification.userInfo!
+		var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+		keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+		
+		var contentInset:UIEdgeInsets = self.scrollView.contentInset
+		contentInset.bottom = keyboardFrame.size.height
+		scrollView.contentInset = contentInset
+	}
+	
+	@objc func keyboardWillHide(notification:NSNotification){
+		let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+		scrollView.contentInset = contentInset
+	}
+	
 	func createButton(){
 		
 		// Image from extension
@@ -73,6 +101,11 @@ class FilteringImageController: UIViewController {
 		submitBtn.tintColor = UIColor.black
 		submitBtn.backgroundColor = UIColor.blue
 		
+		imageId.text = "Image ID :"
+		pointNumber.text = "Number of point :"
+		leafSize.text = "Size of leaf :"
+		widthSize.text = "Size of width :"
+		
 		imgView.translatesAutoresizingMaskIntoConstraints = false
 		filenameLabel.translatesAutoresizingMaskIntoConstraints = false
 		submitBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -85,35 +118,49 @@ class FilteringImageController: UIViewController {
 		widthSize.translatesAutoresizingMaskIntoConstraints = false
 		widthSizeField.translatesAutoresizingMaskIntoConstraints = false
 		
-		self.view.addSubview(imgView)
-		self.view.addSubview(filenameLabel)
-		self.view.addSubview(submitBtn)
-		self.view.addSubview(imageId)
-		self.view.addSubview(imageIdField)
-		self.view.addSubview(pointNumber)
-		self.view.addSubview(pointNumberField)
-		self.view.addSubview(leafSize)
-		self.view.addSubview(leafSizeField)
-		self.view.addSubview(widthSize)
-		self.view.addSubview(widthSizeField)
+		self.scrollView.addSubview(imgView)
+		self.scrollView.addSubview(filenameLabel)
+		self.scrollView.addSubview(submitBtn)
+		self.scrollView.addSubview(imageId)
+		self.scrollView.addSubview(imageIdField)
+		self.scrollView.addSubview(pointNumber)
+		self.scrollView.addSubview(pointNumberField)
+		self.scrollView.addSubview(leafSize)
+		self.scrollView.addSubview(leafSizeField)
+		self.scrollView.addSubview(widthSize)
+		self.scrollView.addSubview(widthSizeField)
 		
 		imgView.heightAnchor.constraint(equalToConstant: 300).isActive = true
 		imgView.widthAnchor.constraint(equalToConstant: 300).isActive = true
 		
-		imgView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-		imgView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -150).isActive = true
+		imgView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
+		imgView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor, constant: -250).isActive = true
 		
+		setLabelSizeTo(label: filenameLabel, width: 300, height: 150)
+		setLabelSizeTo(label: imageId, width: 300, height: 150)
+		setLabelSizeTo(label: pointNumber, width: 300, height: 150)
+		setLabelSizeTo(label: leafSize, width: 300, height: 150)
+		setLabelSizeTo(label: widthSize, width: 300, height: 150)
 		
-		filenameLabel.heightAnchor.constraint(equalToConstant: 150).isActive = true
-		filenameLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
+		setTextFieldSizeTo(textField: imageIdField, width: 300, height: 150)
+		setTextFieldSizeTo(textField: pointNumberField, width: 300, height: 150)
+		setTextFieldSizeTo(textField: leafSizeField, width: 300, height: 150)
+		setTextFieldSizeTo(textField: widthSizeField, width: 300, height: 150)
 		
-		filenameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-		filenameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 50).isActive = true
+		filenameLabel.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
+		filenameLabel.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor, constant: -50).isActive = true
 		
 	}
 	
 	@objc func submit(sender:UIButton){
 		
 	}
-	
+	func setLabelSizeTo(label: UILabel, width: CGFloat, height: CGFloat){
+		label.widthAnchor.constraint(equalToConstant: width).isActive = true
+		label.heightAnchor.constraint(equalToConstant: height).isActive = true
+	}
+	func setTextFieldSizeTo(textField: UITextField, width: CGFloat, height: CGFloat){
+		textField.widthAnchor.constraint(equalToConstant: width).isActive = true
+		textField.heightAnchor.constraint(equalToConstant: height).isActive = true
+	}
 }
