@@ -34,7 +34,6 @@ class FilteringImageController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
 
-		
 		print("viewDidLoad!!")
 		createButton()
 		
@@ -45,10 +44,13 @@ class FilteringImageController: UIViewController {
 		
 		
 		let userDefault = UserDefaults.standard
-		print("userDefault = \(userDefault.value(forKey: "imgData"))")
+//		print("userDefault = \(userDefault.value(forKey: "dataName"))")
+		
 		userDefault.addSuite(named: "group.DroneSimulator")
-		if let dictabc = userDefault.value(forKey: "imgData")  {
-			let dict = dictabc as! NSDictionary
+		
+		
+		if let dicArr = userDefault.value(forKey: "dataName")  {
+			let dict = dicArr as? [[String:Any]]
 //			print("dict=\(dict)")
 			let data = dict.value(forKey: "imgData") as! Data
 			let str = dict.value(forKey: "name") as! String
@@ -161,7 +163,7 @@ class FilteringImageController: UIViewController {
 		setLabelSizeTo(label: widthSize, width: 300, height: 150)
 		setLabelSizeTo(label: imageIdFromData, width: 300, height: 150)
 		
-		pointNumberField.placeholder = "300"
+		pointNumberField.placeholder = "100"
 		leafSizeField.placeholder = "1"
 		widthSizeField.placeholder = "50"
 		
@@ -184,19 +186,28 @@ class FilteringImageController: UIViewController {
 	
 	@objc func submit(sender:UIButton){
 		let imageId = self.imageIdFromData.text!
-		let number = self.pointNumberField.text!
-		let leaf_size = self.leafSizeField.text!
-		let width = self.widthSizeField.text!
+		var number = self.pointNumberField.text!
+		var leaf_size = self.leafSizeField.text!
+		var width = self.widthSizeField.text!
+		
+		if number == "" {
+			number = "100"
+		}
+		if leaf_size == "" {
+			leaf_size = "1"
+		}
+		if width == "" {
+			width = "50"
+		}
 		
 		let params: Parameters = [
 			"image" : imageId,
-			"number" : 300,
-			"leaf_size" : 1,
-			"width" : 50
+			"number" : number,
+			"leaf_size" : leaf_size,
+			"width" : width
 		]
 		
 		Alamofire.request("http://neinsys.io:5000/filteringImage", method: .post, parameters: params)
-
 			.response { response in
 				print(response)
 		}

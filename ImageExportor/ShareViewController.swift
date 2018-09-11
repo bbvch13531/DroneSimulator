@@ -46,16 +46,25 @@ class ShareViewController: SLComposeServiceViewController {
 							
 							self.uploadImage(data: uploadImgData)
 							var dictArr = [[ String: Any]]()
-							var originDict: [String : Any] = self.userDefault?.value(forKey: "imgData") as! [String : Any]
-							dictArr.append(originDict)
+							
+							
+							guard var originDict = self.userDefault?.value(forKey: "dataName") as? [[String:Any]] else {
+								print("invalid dictArr in userDefault")
+								return
+							}
+								
+//							var originDict: [String : Any] = self.userDefault?.value(forKey: "imgData") as! [String : Any]
+//							dictArr.append(originDict)
+
 							let dict: [String : Any] = ["imgData" :  uploadImgData, "name" : self.contentText]
-							dictArr.append(dict)
+							originDict.append(dict)
+
 							self.filename = self.contentText
 							//								userDefault.addSuite(named: "group.DroneSimulator")
 							
-							self.userDefault?.set(originDict, forKey: "imgData")
+							self.userDefault?.set(originDict, forKey: "dataName")
 							self.userDefault?.synchronize()
-							let dicData = self.userDefault?.value(forKey: "imgData") as? NSDictionary
+//							let dicData = self.userDefault?.value(forKey: "imgData") as? NSDictionary
 							print("userDefault saved")
 						}
 				
@@ -77,6 +86,14 @@ class ShareViewController: SLComposeServiceViewController {
 			"file" : data
 		]
 		
+		// get userDefault and set DicArr
+		var idArr = [String]()
+		guard var originIdArr = self.userDefault?.value(forKey: "id") as? [String] else {
+			print("invalid value in userDefault")
+			return
+		}
+		print("originIdArr = \(originIdArr)")
+		
 		print("data = \(data)")
 		Alamofire.upload(
 			multipartFormData: { multipartFormData in
@@ -95,7 +112,9 @@ class ShareViewController: SLComposeServiceViewController {
 									if let dic = object as? [String:Any]{
 										if let id = dic["_id"] as? String {
 											print(id)
-											self.userDefault?.set(id, forKey: "imageId")
+											originIdArr.append(id)
+//											idArr.append(id)
+											self.userDefault?.set(originIdArr, forKey: "id")
 										}
 									}
 								}

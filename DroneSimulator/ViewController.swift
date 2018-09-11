@@ -266,13 +266,12 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		let pathName = self.pathNameField.text!
 		
 		let params: Parameters = [
-			"rest" : 1,
+			"rest" : 0,
 			"optimization" : 0,
 			"name" : pathName,
 			"algorithm" : "DinicAndMCMF",
 			"image": imageId
 		]
-		
 		
 		let encoding = URLEncoding(arrayEncoding: .noBrackets)
 		Alamofire.request("http://neinsys.io:5000/findPath", method: .post, parameters: params, encoding:encoding)
@@ -323,13 +322,9 @@ class CustomCell: UICollectionViewCell {
 		
 		self.layer.cornerRadius = 15
 		
-		//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
 		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-16-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1":nameLabel]))
 		
 		imageView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
-		//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
-		
-		//		addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-8-[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":imageView,"v1": nameLabel]))
 		nameLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor)
 	}
 }
