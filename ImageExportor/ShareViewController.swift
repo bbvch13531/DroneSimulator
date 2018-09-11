@@ -92,9 +92,10 @@ class ShareViewController: SLComposeServiceViewController {
 		// get userDefault and set DicArr
 		
 		var originIdArr = self.userDefault?.value(forKey: "imageData") as? [String:Any]
+		var lk = String()
 		
 		if originIdArr == nil {
-			print("invalid value in userDefault")
+			print("invalid imageData in userDefault")
 			originIdArr = [String:Any]()
 		}
 		
@@ -118,10 +119,13 @@ class ShareViewController: SLComposeServiceViewController {
 									if let dic = object as? [String:Any]{
 										if let id = dic["_id"] as? String {
 											print(id)
-//											originIdArr?.append(id)
+
 											originIdArr?[id] = self.imageimage
-//											idArr.append(id)
+											lk = id
+
 											self.userDefault?.set(originIdArr, forKey: "imageData")
+											self.userDefault?.set(lk, forKey: "lastKey")
+											self.userDefault?.set(self.filename, forKey: "fileName")
 										}
 									}
 								}

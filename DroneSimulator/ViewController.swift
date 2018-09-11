@@ -45,6 +45,10 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 				self.parseJSON()
 			}
 		}
+		let userDefault = UserDefaults.standard
+		userDefault.addSuite(named: "group.DroneSimulator")
+		let tmp = userDefault.value(forKey: "imageData")
+		print("test userDefault \(tmp)")
 		
 		navigationItem.title = "Multi Drone Path Planning"
 		createButton()
@@ -52,7 +56,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		collectionView?.backgroundColor = UIColor.white
 		collectionView?.register(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
 		
-		//		collectionView?.contentInset.top = max(((collectionView?.frame.height)! - (collectionView?.contentSize.height)!) / 2, 0)
 		collectionView?.contentInset.top = -50
 		collectionView?.dragInteractionEnabled = true
 		
@@ -205,7 +208,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 							if let id = object["_id"] as? String {
 								print("\(id)\n")
 								self.imageId.append(id)
-								
 							}
 							if let filename = object["filename"] as? String {
 								self.imageFilename.append(filename)

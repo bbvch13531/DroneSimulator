@@ -22,6 +22,11 @@ class FilteringImageController: UIViewController {
 	var widthSizeField = UITextField()
 	var scrollView = UIScrollView()
 	
+	var lastKey = String()
+	var fileName = String()
+	var dic = [String:Any]()
+	
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.white
@@ -36,30 +41,33 @@ class FilteringImageController: UIViewController {
 
 		print("viewDidLoad!!")
 		createButton()
-		
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
 		
 		let userDefault = UserDefaults.standard
 //		print("userDefault = \(userDefault.value(forKey: "dataName"))")
 		
 		userDefault.addSuite(named: "group.DroneSimulator")
 		
-		
-		if let dicArr = userDefault.value(forKey: "dataName")  {
-			let dict = dicArr as! [[String:Any]]
+		if let lk = userDefault.value(forKey: "lastKey") as? String {
+			self.lastKey = lk
+		}
+		if let fn = userDefault.value(forKey: "fileName") as? String {
+			self.fileName = fn
+		}
+		if let dicArr = userDefault.value(forKey: "imageData")  {
+			
+			self.dic = dicArr as! [String:Any]
 //			print("dict=\(dict)")
 //			let data = dict.value(forKey: "imgData") as! Data
 //			let str = dict.value(forKey: "name") as! String
-			let data = dict[0]["imgData"] as! Data
-			let str = dict[0]["name"] as! String
+			let data = self.dic[lastKey] as! Data
 			
 			self.imgView.image = UIImage(data: data)
 //			print("123123data = \(userDefault.value(forKey: "imgData") as? NSDictionary)")
-			self.filenameLabel.text = str
+			self.filenameLabel.text = self.fileName
 			
 //			userDefault.removeObject(forKey: "imgData")
 			userDefault.synchronize()
@@ -67,10 +75,9 @@ class FilteringImageController: UIViewController {
 		}else {
 			print("fail to get userDefault")
 		}
-		if let imageId = userDefault.value(forKey: "id") as? [String] {
-			let id = imageId[0]
-			self.imageIdFromData.text = id
-		}
+		
+		self.imageIdFromData.text = lastKey
+		
 	}
 	
 	@objc func keyboardWillShow(notification:NSNotification){
@@ -210,8 +217,21 @@ class FilteringImageController: UIViewController {
 		]
 		
 		Alamofire.request("http://neinsys.io:5000/filteringImage", method: .post, parameters: params)
-			.response { response in
-				print(response)
+			.responseJSON { response in
+//				print(response.result.value)
+				if let imageArray = response.result.value as? [NSObject]{
+					if let value = imageArray[0] as? [String:Any] {
+						if let newId = value["_id"] as? String  {
+							print(newId)
+							self.dic[newId] = self.dic[self.lastKey]
+							
+							let userDefault = UserDefaults.standard
+							userDefault.addSuite(named: "group.DroneSimulator")
+							userDefault.set(self.dic,forKey:"imageData")
+							
+						}
+					}
+				}
 		}
 	}
 	func setConstraintToLable(label: UILabel,xConstant: CGFloat, yConstant: CGFloat){
