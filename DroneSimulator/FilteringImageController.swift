@@ -227,6 +227,9 @@ class FilteringImageController: UIViewController {
 						}
 					}
 				}
+				let alert = UIAlertController(title: "Success", message: "Image filtering is finished", preferredStyle: UIAlertControllerStyle.alert)
+				alert.addAction(UIAlertAction(title: "OK", style: .default))
+				self.present(alert, animated: true, completion: nil)
 		}
 	}
 	func setConstraintToLable(label: UILabel,xConstant: CGFloat, yConstant: CGFloat){

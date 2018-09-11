@@ -198,8 +198,8 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			
 			if let json = response.result.value {
 				
-				if let objarray = json as? [Any] {
-					
+				if var objarray = json as? [Any] {
+					objarray = Array(objarray[0...10])
 					for array in objarray {
 						if let object = array as? [String:Any]{
 							if let id = object["_id"] as? String {
