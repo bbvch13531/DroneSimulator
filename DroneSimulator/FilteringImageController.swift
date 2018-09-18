@@ -167,8 +167,8 @@ class FilteringImageController: UIViewController {
 		setLabelSizeTo(label: widthSize, width: 300, height: 150)
 		setLabelSizeTo(label: imageIdFromData, width: 300, height: 150)
 		
-		pointNumberField.placeholder = "100"
-		leafSizeField.placeholder = "1"
+		pointNumberField.placeholder = "500"
+		leafSizeField.placeholder = "30"
 		widthSizeField.placeholder = "50"
 		
 		setTextFieldSizeTo(textField: pointNumberField, width: 150, height: 40)
@@ -195,7 +195,7 @@ class FilteringImageController: UIViewController {
 		var width = self.widthSizeField.text!
 		
 		if number == "" {
-			number = "100"
+			number = "500"
 		}
 		if leaf_size == "" {
 			leaf_size = "1"

@@ -124,7 +124,6 @@ class ShareViewController: SLComposeServiceViewController {
 								}
 							}
 						}
-//						print("Success!")
 					}
 					
 				case .failure(let encodingError):

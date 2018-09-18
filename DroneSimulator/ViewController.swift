@@ -191,15 +191,17 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 	}
 	
 	func parseJSON(){
+		
 		Alamofire.request("http://neinsys.io:5000/api/imageList?order=t_des").responseJSON { response in
 			print("Request: \(response.request)")
 			print("Response: \(response.response)")
 			print("Error: \(response.error)")
 			
 			if let json = response.result.value {
-				
 				if var objarray = json as? [Any] {
-					objarray = Array(objarray[0...10])
+					
+//					objarray = Array(objarray[0...10])
+					print("alamofirealamofire")
 					for array in objarray {
 						if let object = array as? [String:Any]{
 							if let id = object["_id"] as? String {
@@ -213,6 +215,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 								}
 								
 								self.customItems = self.imageArr.count
+								print("customItems: \(self.customItems)")
 							}
 							if let filename = object["filename"] as? String {
 								self.imageFilename.append(filename)
@@ -233,7 +236,6 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		submitBtn.setTitle("Submit", for: .normal)
 		submitBtn.addTarget(self, action: #selector(submit), for: .touchUpInside)
 		submitBtn.tintColor = UIColor.black
-		
 		
 		submitBtn.setTitleColor(UIView().tintColor, for: .normal)
 		submitBtn.layer.cornerRadius = 10
@@ -273,7 +275,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		let pathName = self.pathNameField.text!
 		
 		let params: Parameters = [
-			"rest" : 0,
+			"rest" : 30,
 			"optimization" : 0,
 			"name" : pathName,
 			"algorithm" : "DinicAndMCMF",

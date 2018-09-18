@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		}
 		
 	
-//		Thread.sleep(forTimeInterval: 1.0)
+		Thread.sleep(forTimeInterval: 1.0)
 		
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.makeKeyAndVisible()
