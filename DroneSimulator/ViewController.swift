@@ -36,7 +36,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 		print("imageId.count = \(imageId.count), imageFilename.count = \(imageFilename.count)")
 		//서버와 통신해서 imageArr에 텍스트 넣기
 		userDefault.addSuite(named: "group.DroneSimulator")
-		
+		self.collectionView?.reloadData()
 		DispatchQueue.global().async{
 			defer{
 				DispatchQueue.main.async {
@@ -160,12 +160,19 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 				customCell.center = CGPoint(x:(customCell.center.x),y:(customCell.center.y)-600)
 				)}
 				,completion: {(finished:Bool) in
+					print(self.imageId[itemIndex])
+					self.userDefault.removeObject(forKey: self.imageId[itemIndex])
+					//					self.userDefault.removeObject(forKey: self.imageArr[itemIndex])
+					self.userDefault.removeObject(forKey: self.imageFilename[itemIndex])
+					
 					self.imageId.remove(at: itemIndex)
 					self.imageFilename.remove(at: itemIndex)
 					self.imageArr.remove(at: itemIndex)
 					
 					self.customItems -= 1
 					self.collectionView!.reloadData()
+					
+					
 			})			
 			
 		}
@@ -200,7 +207,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 			if let json = response.result.value {
 				if var objarray = json as? [Any] {
 					
-//					objarray = Array(objarray[0...10])
+					//					objarray = Array(objarray[0...10])
 					print("alamofirealamofire")
 					for array in objarray {
 						if let object = array as? [String:Any]{
@@ -211,7 +218,7 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 								if imgData != nil {
 									self.imageArr.append(UIImage(data: imgData as! Data)!)
 								} 	else  {
-								self.imageArr.append(UIImage(named: "DroneSimulator")!)
+									self.imageArr.append(UIImage(named: "DroneSimulator")!)
 								}
 								
 								self.customItems = self.imageArr.count
@@ -289,6 +296,9 @@ class CustomCollectionViewController: UICollectionViewController, UICollectionVi
 				//			debugPrint(response)
 				print("\(response)")
 				
+				let alert = UIAlertController(title: "Success", message: "Path is uploaded", preferredStyle: UIAlertControllerStyle.alert)
+				alert.addAction(UIAlertAction(title: "OK", style: .default))
+				self.present(alert, animated: true, completion: nil)
 		}
 		//		debugPrint(request)
 	}

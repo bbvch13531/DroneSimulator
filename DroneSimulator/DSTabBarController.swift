@@ -26,6 +26,6 @@ class DSTabBarController: UITabBarController {
 		navCollectionController.tabBarItem.title = "Make Path"
 		
 		viewControllers = [navFilterController,navCollectionController]
-
+		
 	}
 }

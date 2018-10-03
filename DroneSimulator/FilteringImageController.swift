@@ -32,13 +32,13 @@ class FilteringImageController: UIViewController {
 		self.view.backgroundColor = UIColor.white
 		
 		scrollView = UIScrollView(frame: view.bounds)
-
+		
 		self.view.addSubview(scrollView)
 		scrollView.contentSize = self.view.frame.size
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-
+		
 		print("viewDidLoad!!")
 		createButton()
 	}
@@ -47,7 +47,7 @@ class FilteringImageController: UIViewController {
 		super.viewWillAppear(animated)
 		
 		let userDefault = UserDefaults.standard
-//		print("userDefault = \(userDefault.value(forKey: "dataName"))")
+		//		print("userDefault = \(userDefault.value(forKey: "dataName"))")
 		
 		userDefault.addSuite(named: "group.DroneSimulator")
 		
@@ -59,12 +59,12 @@ class FilteringImageController: UIViewController {
 		}
 		if let img = userDefault.value(forKey: self.lastKey)  {
 			
-//			let data = dict.value(forKey: "imgData") as! Data
-//			let str = dict.value(forKey: "name") as! String
+			//			let data = dict.value(forKey: "imgData") as! Data
+			//			let str = dict.value(forKey: "name") as! String
 			let data = img as! Data
 			
 			self.imgView.image = UIImage(data: data)
-//			print("123123data = \(userDefault.value(forKey: "imgData") as? NSDictionary)")
+			//			print("123123data = \(userDefault.value(forKey: "imgData") as? NSDictionary)")
 			self.filenameLabel.text = self.fileName
 			
 		}else {
@@ -213,7 +213,7 @@ class FilteringImageController: UIViewController {
 		
 		Alamofire.request("http://neinsys.io:5000/filteringImage", method: .post, parameters: params)
 			.responseJSON { response in
-//				print(response.result.value)
+				//				print(response.result.value)
 				if let imageArray = response.result.value as? [NSObject]{
 					if let value = imageArray[0] as? [String:Any] {
 						if let newId = value["_id"] as? String  {
